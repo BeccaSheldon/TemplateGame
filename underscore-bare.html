@@ -1,0 +1,58 @@
+<html>
+<head>
+  <title>Underscore Bare</title>
+  <style type="text/css">
+    #templates { display: none; }
+    #scores .score {
+      background: #ddd;
+      padding: 1px 10px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+<label>Name</label>
+<input id="inputName" type="text"></input>
+<label>Score</label>
+<input id="inputScore" type="text"></input>
+<button id="submit">Submit</button>
+
+<div id="scores">
+</div>
+
+<div id="templates">
+  <script class="score" type="text/template">
+    <div class="score">
+    <p><%= name %> scored <%= score %> points.</p>
+    </div>
+  </script>
+</div>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
+
+<script type="text/javascript">
+    var scoreTemplateHtml = $('#templates .score').html();
+    var scoreTemplate = _.template(scoreTemplateHtml);
+    var scores = [
+      { name: 'KAORU', score: 100 },
+      { name: 'BECCA', score: 101 },
+      { name: 'GILBERT', score: 1 }
+    ];
+    for(var i = 0; i < scores.length; i += 1) {
+
+      var newScoreHtml = scoreTemplate({ name: scores[i].name, score: scores[i].score});
+      $('#scores').append(newScoreHtml);
+      
+    }
+    
+    $('#submit').on('click', function() {
+      var playerName = $('#inputName').val();
+      var playerScore = $('#inputScore').val();
+      var newScoreHtml = scoreTemplate({ name: playerName, score: playerScore});
+      $('#scores').append(newScoreHtml);
+    })
+</script>
+
+</body>
+</html>
